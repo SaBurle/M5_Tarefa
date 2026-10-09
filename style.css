@@ -79,6 +79,36 @@ main {
 }
 
 /* ==========================================
+   2.2 Busca
+   ========================================== */
+.busca {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0 0 24px;
+    padding: 12px 16px;
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font: inherit;
+}
+
+.busca:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+}
+
+.sem-resultado {
+    text-align: center;
+    color: var(--muted);
+}
+
+/* Etapa escondida pela busca */
+.oculto {
+    display: none;
+}
+
+/* ==========================================
    3. Título e subtítulo
    ========================================== */
 h1 {

@@ -42,3 +42,39 @@ botaoTema.addEventListener("click", () => {
     aplicarTema(temaAtual);
     salvarTema(temaAtual);
 });
+
+/* ==========================================
+   Busca: filtra as etapas pelo texto digitado
+   ========================================== */
+const campoBusca = document.getElementById("busca");
+const semResultado = document.getElementById("sem-resultado");
+const etapas = document.querySelectorAll("main > ol > li");
+
+// Remove acentos e maiúsculas ("Configuração" -> "configuracao")
+function normalizar(texto) {
+    return texto
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+}
+
+// Texto de cada etapa, já normalizado (calculado uma vez só)
+const textos = Array.from(etapas, (li) => normalizar(li.textContent));
+
+// Fixa o número de cada etapa, para não mudar quando outras forem escondidas
+etapas.forEach((li, i) => {
+    li.style.setProperty("counter-set", "etapa " + (i + 1));
+});
+
+campoBusca.addEventListener("input", () => {
+    const termo = normalizar(campoBusca.value.trim());
+    let visiveis = 0;
+
+    etapas.forEach((li, i) => {
+        const mostrar = textos[i].includes(termo);
+        li.classList.toggle("oculto", !mostrar);
+        if (mostrar) visiveis++;
+    });
+
+    semResultado.hidden = visiveis > 0;
+});
